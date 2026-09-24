@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AxureHub 私有同步助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="mac-window">
+    <!-- Header -->
+    <header class="mac-header">
+      <div class="brand-group">
+        <div class="brand-app-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+          </svg>
+        </div>
+        <div class="title-meta">
+          <div class="app-title">AxureHub Sync</div>
+          <div class="app-subtitle">私有化原型同步引擎</div>
+        </div>
+      </div>
+
+      <div class="status-pill" id="server-status" title="正在检测节点状态...">
+        <span class="status-dot connecting"></span>
+        <span class="status-text">检测中</span>
+      </div>
+    </header>
+
+    <!-- macOS Sequoia Segmented Pill Bar -->
+    <nav class="segmented-bar">
+      <button class="segmented-item active" data-tab="settings">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>服务配置</span>
+      </button>
+      <button class="segmented-item" data-tab="history">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>同步历史</span>
+      </button>
+      <button class="segmented-item" data-tab="guide">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>快捷指南</span>
+      </button>
+    </nav>
+
+    <!-- Main Views -->
+    <main class="mac-body">
+      <!-- Tab 1: Settings -->
+      <section class="tab-pane active" id="tab-settings">
+        <div class="inset-group">
+          <div class="inset-cell">
+            <div class="cell-label-row">
+              <span class="cell-title">云端接收服务器</span>
+              <span class="cell-badge">Endpoint</span>
+            </div>
+            <input type="text" class="cell-input" id="cfg-server" placeholder="http://localhost:8088 或 https://your-domain.com">
+            <div class="cell-desc">运行在云主机的 AxureHub FastAPI 原型接收网关</div>
+          </div>
+
+          <div class="inset-cell">
+            <div class="cell-label-row">
+              <span class="cell-title">授权凭证 (Token)</span>
+              <span class="cell-badge" id="token-status-badge">安全校验</span>
+            </div>
+            <div class="cell-input-row">
+              <input type="password" class="cell-input" id="cfg-token" placeholder="your-admin-token">
+              <button type="button" class="btn-toggle-eye" id="btn-toggle-token" title="显示/隐藏凭证">
+                <svg class="eye-icon eye-open" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="eye-icon eye-closed" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+            <div class="cell-desc" id="token-desc">后台生成的 API 密钥，校验通过后方可执行同步</div>
+          </div>
+
+          <div class="inset-cell">
+            <div class="cell-label-row">
+              <span class="cell-title">公网自定义域名 (可选)</span>
+            </div>
+            <input type="text" class="cell-input" id="cfg-domain" placeholder="https://your-domain.com">
+            <div class="cell-desc">配置反代域名，留空则默认使用服务器公网 IP</div>
+          </div>
+        </div>
+
+        <!-- Inset Switch Group -->
+        <div class="inset-group">
+          <div class="inset-cell row-cell">
+            <div class="cell-info">
+              <div class="cell-title">自动复制公网预览链接</div>
+              <div class="cell-desc">同步成功后将直连网址静默写入剪贴板</div>
+            </div>
+            <label class="apple-switch">
+              <input type="checkbox" id="cfg-autocopy" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Action Row -->
+        <div class="actions-row">
+          <button class="mac-btn mac-btn-secondary" id="btn-test">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span id="test-text">连通性测试</span>
+          </button>
+          <button class="mac-btn mac-btn-primary" id="btn-save">
+            <span>保存配置</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Tab 2: History -->
+      <section class="tab-pane" id="tab-history">
+        <div class="history-container" id="history-list">
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+              </svg>
+            </div>
+            <div class="empty-title">暂无原型同步记录</div>
+            <div class="empty-subtitle">在 Axure RP 预览页面点击同步后，已部署的项目将自动汇集于此。</div>
+          </div>
+        </div>
+        <div class="history-footer">
+          <button class="mac-btn mac-btn-secondary mac-btn-sm" id="btn-clear-history">清空记录</button>
+        </div>
+      </section>
+
+      <!-- Tab 3: Guide -->
+      <section class="tab-pane" id="tab-guide">
+        <div class="inset-group">
+          <div class="inset-cell step-cell">
+            <div class="step-badge">1</div>
+            <div class="step-content">
+              <div class="step-title">Axure 本地启动预览</div>
+              <div class="step-desc">按 <kbd>F5</kbd> 触发预览，Axure RP 将在本地启动 <code>start.html</code>。</div>
+            </div>
+          </div>
+
+          <div class="inset-cell step-cell">
+            <div class="step-badge">2</div>
+            <div class="step-content">
+              <div class="step-title">轻按右下角智能胶囊</div>
+              <div class="step-desc">页面右下角悬浮 Dynamic Island 胶囊，点击 <strong>同步到云端</strong>。</div>
+            </div>
+          </div>
+
+          <div class="inset-cell step-cell">
+            <div class="step-badge">3</div>
+            <div class="step-content">
+              <div class="step-title">分享直连在线交互</div>
+              <div class="step-desc">秒级推送到 Server A，直接 <kbd>Ctrl + V</kbd> 即可将公网地址发给团队。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Dock Footer -->
+    <footer class="mac-footer">
+      <span class="version-label">AxureHub Sync v1.1.0</span>
+      <button class="dock-link-btn" id="btn-inject-curr">注入当前标签页</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

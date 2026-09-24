@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  axhub-receiver:
+    build: .
+    container_name: axhub-receiver
+    restart: always
+    ports:
+      - "${PORT:-8088}:8088"
+    environment:
+      - PROTOTYPES_DIR=/srv/prototypes
+      - AUTH_TOKEN=${AUTH_TOKEN:-admin-token-secret}
+      - TZ=${TZ:-Asia/Shanghai}
+    volumes:
+      - ./app.py:/app/app.py
+      - ./axurehub.html:/app/axurehub.html
+      - ./prototypes:/srv/prototypes
+

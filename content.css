@@ -1,0 +1,897 @@
+/* ==========================================================================
+   AxHub Sync - Apple Design System (macOS Sequoia / iOS Liquid Glass HIG)
+   Fully Scoped to #axhub-sync-root
+   ========================================================================== */
+
+#axhub-sync-root {
+  --axh-safe-bottom: max(14px, env(safe-area-inset-bottom, 24px));
+  --axh-safe-right: max(14px, env(safe-area-inset-right, 24px));
+  position: fixed;
+  bottom: clamp(12px, 2.5vw, 24px);
+  right: clamp(12px, 2.5vw, 24px);
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: clamp(12px, 0.9vw, 13.5px);
+  line-height: 1.4;
+  color: #f5f5f7;
+  letter-spacing: -0.2px;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#axhub-sync-root,
+#axhub-sync-root * {
+  box-sizing: border-box;
+}
+
+#axhub-sync-root :where(*) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ==========================================================================
+   1. Dynamic Island / Capsule Widget (Apple VisionOS / macOS Sequoia HIG)
+   ========================================================================== */
+#axhub-sync-root .axh-capsule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px; /* Apple standard ergonomic height */
+  padding: 0 10px 0 18px !important; /* 18px padding on left ensures logo never clips curve */
+  background: rgba(24, 24, 28, 0.86);
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  box-shadow: 
+    0 20px 48px -6px rgba(0, 0, 0, 0.65),
+    0 4px 14px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.35);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: right bottom;
+  box-sizing: border-box;
+}
+
+#axhub-sync-root .axh-capsule:hover {
+  background: rgba(32, 32, 38, 0.92);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    0 24px 54px -6px rgba(0, 0, 0, 0.72),
+    0 6px 18px rgba(0, 0, 0, 0.38),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.38);
+  transform: translateY(-2px);
+}
+
+/* Brand Group */
+#axhub-sync-root .axh-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #0a84ff 0%, #0071e3 100%);
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.5), inset 0 1px 0.5px rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-brand-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #30d158;
+  box-shadow: 0 0 8px rgba(48, 209, 88, 0.9);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-brand-dot.connecting {
+  background: #ffd60a;
+  box-shadow: 0 0 8px rgba(255, 214, 10, 0.9);
+}
+
+#axhub-sync-root .axh-brand-dot.offline {
+  background: #ff453a;
+  box-shadow: 0 0 8px rgba(255, 69, 58, 0.9);
+}
+
+#axhub-sync-root .axh-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* Project Badge */
+#axhub-sync-root .axh-project-name {
+  max-width: clamp(80px, 12vw, 150px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-project-name:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Apple Buttons */
+#axhub-sync-root .axh-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.1px;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+#axhub-sync-root .axh-btn:active {
+  transform: scale(0.96);
+}
+
+/* Primary Action in Capsule: Apple SF Blue Pill */
+#axhub-sync-root .axh-capsule .axh-btn-primary {
+  height: 32px !important;
+  padding: 0 18px !important; /* 18px horizontal padding prevents text from touching edge */
+  font-size: 12.5px !important;
+  font-weight: 600;
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg, #0a84ff 0%, #0071e3 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.45), inset 0 1px 0.5px rgba(255, 255, 255, 0.45);
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-capsule .axh-btn-primary:hover {
+  background: linear-gradient(180deg, #1a8cff 0%, #0077ed 100%);
+  box-shadow: 0 4px 14px rgba(10, 132, 255, 0.6), inset 0 1px 0.5px rgba(255, 255, 255, 0.5);
+}
+
+#axhub-sync-root .axh-capsule .axh-btn-primary:disabled,
+#axhub-sync-root .axh-capsule .axh-btn-primary.disabled {
+  opacity: 0.72 !important;
+  cursor: not-allowed !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#axhub-sync-root .axh-capsule .axh-btn-primary.btn-suspended {
+  background: rgba(255, 69, 58, 0.22) !important;
+  border-color: rgba(255, 69, 58, 0.45) !important;
+  color: #ff453a !important;
+}
+
+#axhub-sync-root .axh-capsule .axh-btn-primary.btn-suspended:hover {
+  background: rgba(255, 69, 58, 0.28) !important;
+  border-color: rgba(255, 69, 58, 0.6) !important;
+}
+
+#axhub-sync-root .axh-capsule .axh-btn-primary.btn-offline {
+  background: rgba(255, 69, 58, 0.15) !important;
+  border-color: rgba(255, 69, 58, 0.3) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+@keyframes axh-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#axhub-sync-root .axh-spin {
+  animation: axh-spin 1s linear infinite !important;
+}
+
+/* Icon Buttons (Gear, Collapse) */
+#axhub-sync-root .axh-btn-icon {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 0 !important;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0;
+}
+
+#axhub-sync-root .axh-btn-icon:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+   2. Collapsed State: Liquid Pebble (Apple Watch / Dynamic Pill)
+   ========================================================================== */
+.axh-mini-trigger {
+  display: none;
+  width: clamp(38px, 3.2vw, 44px);
+  height: clamp(38px, 3.2vw, 44px);
+  border-radius: 50%;
+  background: rgba(28, 28, 30, 0.78);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 12px 28px rgba(0, 0, 0, 0.4),
+    inset 0 0.5px 0.5px 0 rgba(255, 255, 255, 0.3);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #0a84ff;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.axh-mini-trigger:hover {
+  transform: scale(1.1);
+  background: rgba(36, 36, 40, 0.88);
+  color: #ffffff;
+  box-shadow: 0 16px 36px rgba(10, 132, 255, 0.35);
+}
+
+.axh-mini-trigger:active {
+  transform: scale(0.94);
+}
+
+#axhub-sync-root.collapsed .axh-capsule {
+  display: none;
+}
+
+#axhub-sync-root.collapsed .axh-mini-trigger {
+  display: flex;
+}
+
+/* ==========================================================================
+   3. Apple Dynamic Island Progress Sheet
+   ========================================================================== */
+#axhub-sync-root .axh-progress-panel {
+  display: none;
+  position: absolute;
+  bottom: clamp(48px, 4vw, 56px);
+  right: 0;
+  width: clamp(280px, 85vw, 340px);
+  max-width: calc(100vw - 32px);
+  background: rgba(28, 28, 30, 0.82);
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px !important;
+  padding: 16px 18px !important;
+  box-shadow: 
+    0 24px 48px -6px rgba(0, 0, 0, 0.6),
+    inset 0 0.5px 0.5px 0 rgba(255, 255, 255, 0.25);
+  animation: axh-spring-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes axh-spring-up {
+  0% { opacity: 0; transform: translateY(12px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+#axhub-sync-root .axh-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px !important;
+}
+
+#axhub-sync-root .axh-progress-title {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 13px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#axhub-sync-root .axh-progress-percent {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 13px !important;
+  color: #0a84ff;
+}
+
+#axhub-sync-root .axh-bar-bg {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 9px !important;
+}
+
+#axhub-sync-root .axh-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0a84ff, #5e5ce6, #30d158);
+  border-radius: 9999px;
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#axhub-sync-root .axh-status-text {
+  font-size: 11.5px !important;
+  color: #8e8e93;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.1px;
+}
+
+/* ==========================================================================
+   4. Apple Success Card (AirPods HUD style)
+   ========================================================================== */
+#axhub-sync-root .axh-success-card {
+  display: none;
+  position: absolute;
+  bottom: clamp(52px, 4.5vw, 60px);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: rgba(26, 26, 30, 0.94) !important;
+  backdrop-filter: blur(40px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 18px !important;
+  padding: 16px 18px 16px !important;
+  box-shadow: 
+    0 24px 56px -8px rgba(0, 0, 0, 0.8),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28) !important;
+  animation: axh-spring-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box !important;
+}
+
+#axhub-sync-root .axh-success-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 12px !important;
+}
+
+#axhub-sync-root .axh-success-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  letter-spacing: -0.2px !important;
+}
+
+#axhub-sync-root .axh-success-icon {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #30d158 0%, #248a3d 100%) !important;
+  box-shadow: 0 2px 8px rgba(48, 209, 88, 0.5), inset 0 1px 0.5px rgba(255, 255, 255, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  flex-shrink: 0 !important;
+}
+
+#axhub-sync-root #axh-btn-close-success {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+#axhub-sync-root #axh-btn-close-success:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+}
+
+#axhub-sync-root .axh-url-box {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  padding: 9px 12px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Mono", Menlo, monospace !important;
+  font-size: 11.5px !important;
+  color: #64d2ff !important;
+  word-break: break-all !important;
+  margin-bottom: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+}
+
+#axhub-sync-root .axh-url-box:hover {
+  background: rgba(10, 132, 255, 0.1) !important;
+  border-color: rgba(10, 132, 255, 0.35) !important;
+  color: #ffffff !important;
+}
+
+#axhub-sync-root .axh-success-actions {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+#axhub-sync-root .axh-success-actions .axh-btn {
+  flex: 1 !important;
+  height: 34px !important;
+  border-radius: 10px !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.1px !important;
+  box-sizing: border-box !important;
+}
+
+#axhub-sync-root .axh-success-actions .axh-btn-primary {
+  padding: 0 16px !important;
+  font-weight: 600 !important;
+  background: linear-gradient(180deg, #0a84ff 0%, #0071e3 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.45), inset 0 1px 0.5px rgba(255, 255, 255, 0.4) !important;
+}
+
+#axhub-sync-root .axh-success-actions .axh-btn-primary:hover {
+  background: linear-gradient(180deg, #1a8cff 0%, #0077ed 100%) !important;
+  box-shadow: 0 4px 14px rgba(10, 132, 255, 0.6) !important;
+}
+
+#axhub-sync-root .axh-success-actions .axh-btn-subtle {
+  padding: 0 16px !important;
+  font-weight: 500 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #f5f5f7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+#axhub-sync-root .axh-success-actions .axh-btn-subtle:hover {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+/* ==========================================================================
+   5. macOS Settings Modal Sheet
+   ========================================================================== */
+#axhub-sync-root .axh-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  z-index: 2147483646;
+  align-items: center;
+  justify-content: center;
+  animation: axh-fade-in 0.22s ease-out;
+  padding: 16px !important;
+}
+
+@keyframes axh-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#axhub-sync-root .axh-modal {
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  /* Rich dark glass */
+  background: rgba(26, 26, 30, 0.96);
+  backdrop-filter: blur(48px) saturate(200%);
+  -webkit-backdrop-filter: blur(48px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px !important; /* Elegant macOS window radius */
+  padding: 24px 22px 24px !important; /* Generous 24px padding ensures buttons never touch edges */
+  box-shadow:
+    0 36px 80px -12px rgba(0, 0, 0, 0.85),
+    0 12px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  animation: axh-spring-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box !important;
+}
+
+#axhub-sync-root .axh-modal::-webkit-scrollbar { width: 4px; }
+#axhub-sync-root .axh-modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+
+/* Title row */
+#axhub-sync-root .axh-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: -0.3px;
+  padding-bottom: 14px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#axhub-sync-root .axh-modal-title .axh-btn-icon {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+  transition: all 0.2s ease;
+}
+
+#axhub-sync-root .axh-modal-title .axh-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* ── Inset Grouped Card ── */
+#axhub-sync-root .axh-inset-group {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px !important; /* Perfect concentric radius with modal */
+  overflow: hidden;
+  margin-bottom: 22px !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
+}
+
+#axhub-sync-root .axh-inset-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px !important; /* Generous padding to prevent text from touching borders */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 5px !important;
+  transition: background 0.15s ease;
+}
+
+#axhub-sync-root .axh-inset-item:last-child { border-bottom: none; }
+
+#axhub-sync-root .axh-inset-item:focus-within {
+  background: rgba(10, 132, 255, 0.08);
+}
+
+/* Label: small, clear muted secondary */
+#axhub-sync-root .axh-form-label {
+  font-size: 11.5px !important;
+  font-weight: 500;
+  color: #8e8e93;
+  letter-spacing: 0.1px;
+  line-height: 1.2;
+}
+
+/* Value input: white, distinct, plenty of line-height */
+#axhub-sync-root .axh-input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 13.5px !important;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 2px 0 !important;
+  outline: none;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+
+#axhub-sync-root .axh-input::placeholder {
+  color: rgba(255, 255, 255, 0.26);
+  font-weight: 400;
+}
+
+/* Password: tight dots, clean vertical alignment */
+#axhub-sync-root .axh-input[type="password"] {
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+  color: rgba(255, 255, 255, 0.8);
+}
+#axhub-sync-root .axh-input[type="password"]::placeholder {
+  font-size: 13.5px !important;
+  letter-spacing: 0 !important;
+  color: rgba(255, 255, 255, 0.26);
+}
+
+#axhub-sync-root .axh-input-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+#axhub-sync-root .axh-input-wrapper .axh-input {
+  flex: 1 !important;
+  min-width: 0 !important;
+  padding-right: 28px !important;
+}
+
+#axhub-sync-root .axh-btn-eye {
+  position: absolute !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+#axhub-sync-root .axh-btn-eye:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Footer: comfortable margin, spacious buttons with 10px squircle */
+#axhub-sync-root .axh-modal-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#axhub-sync-root .axh-modal-footer .axh-btn {
+  height: 38px !important;
+  border-radius: 10px !important; /* Modern macOS squircle */
+  font-size: 13px !important;
+  letter-spacing: 0.2px;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+#axhub-sync-root .axh-modal-footer .axh-btn-subtle {
+  padding: 0 20px !important; /* 20px ensures '测试连通性' has plenty of breathing room */
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f5f5f7;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#axhub-sync-root .axh-modal-footer .axh-btn-subtle:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+#axhub-sync-root .axh-modal-footer .axh-btn-primary {
+  padding: 0 24px !important; /* 24px ensures '保存配置' has plenty of breathing room */
+  font-weight: 600;
+  background: linear-gradient(180deg, #0a84ff 0%, #0071e3 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.45), inset 0 1px 0.5px rgba(255, 255, 255, 0.4);
+}
+
+#axhub-sync-root .axh-modal-footer .axh-btn-primary:hover {
+  background: linear-gradient(180deg, #1a8cff 0%, #0077ed 100%);
+  box-shadow: 0 4px 14px rgba(10, 132, 255, 0.6);
+}
+
+/* ==========================================================================
+   6. Apple Dynamic Toast Notification
+   ========================================================================== */
+#axhub-sync-root .axh-toast {
+  position: fixed;
+  top: clamp(16px, 2.5vw, 24px);
+  right: clamp(16px, 2.5vw, 24px);
+  z-index: 2147483647;
+  background: rgba(30, 30, 32, 0.88);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 10px 18px !important;
+  border-radius: 9999px !important;
+  box-shadow: 
+    0 14px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0.5px 0.5px 0 rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-16px) scale(0.96);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  max-width: calc(100vw - 32px);
+}
+
+#axhub-sync-root .axh-toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   7. Responsive Framework & Breakpoints (Mobile, Tablet, Laptop, 4K)
+   ========================================================================== */
+
+/* Tablet & Split Screen (<= 768px) */
+@media (max-width: 768px) {
+  #axhub-sync-root {
+    bottom: max(14px, env(safe-area-inset-bottom, 16px));
+    right: max(14px, env(safe-area-inset-right, 16px));
+  }
+
+  .axh-capsule {
+    height: 42px;
+    padding: 0 10px 0 16px;
+    gap: 8px;
+  }
+
+  .axh-project-name {
+    max-width: 90px;
+  }
+
+  /* iOS Bottom Sheet presentation */
+  .axh-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .axh-modal {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 22px 22px 0 0;
+    padding: 22px 20px max(24px, env(safe-area-inset-bottom, 24px));
+    border-bottom: none;
+    max-height: 85vh;
+    animation: axh-sheet-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes axh-sheet-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .axh-toast {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(-16px) scale(0.96);
+  }
+
+  .axh-toast.show {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Smartphone Portrait (<= 480px) */
+@media (max-width: 480px) {
+  .axh-capsule {
+    gap: 6px;
+    padding: 0 8px 0 14px;
+  }
+
+  .axh-brand span:last-child {
+    display: none; /* Hide 'AxureHub' text on mobile, keep logo icon & status dot */
+  }
+
+  .axh-project-name {
+    max-width: 75px;
+    font-size: 11.5px;
+  }
+
+  .axh-capsule .axh-btn-primary {
+    padding: 0 14px;
+    font-size: 12px;
+  }
+
+  .axh-progress-panel,
+  .axh-success-card {
+    right: 0;
+    width: calc(100vw - 28px);
+    border-radius: 16px;
+    padding: 14px;
+  }
+}
+
+/* Ultra-wide Displays / 2K & 4K (>= 2560px) */
+@media (min-width: 2560px) {
+  #axhub-sync-root {
+    font-size: 15px;
+  }
+
+  .axh-capsule {
+    height: 48px;
+    padding: 0 14px 0 20px;
+    gap: 12px;
+  }
+
+  .axh-capsule .axh-btn-primary {
+    height: 34px;
+    padding: 0 20px;
+    font-size: 13.5px;
+  }
+
+  .axh-progress-panel {
+    width: 380px;
+  }
+
+  .axh-success-card {
+    width: 400px;
+  }
+
+  .axh-modal {
+    width: 440px;
+    padding: 28px 24px 26px;
+  }
+
+  .axh-modal-footer .axh-btn {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+/* Reduce Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .axh-capsule,
+  .axh-mini-trigger,
+  .axh-progress-panel,
+  .axh-success-card,
+  .axh-modal,
+  .axh-toast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

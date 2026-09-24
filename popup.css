@@ -1,0 +1,696 @@
+/* ==========================================================================
+   AxHub Sync - Apple HIG Stylesheet (macOS Sequoia / iOS Liquid Glass)
+   ========================================================================== */
+
+:root {
+  --apple-blue: #0071e3;
+  --apple-blue-hover: #0077ed;
+  --apple-green: #30d158;
+  --apple-orange: #ffd60a;
+  --apple-red: #ff453a;
+  --apple-gray-bg: rgba(255, 255, 255, 0.05);
+  --apple-gray-hover: rgba(255, 255, 255, 0.09);
+  --apple-border: rgba(255, 255, 255, 0.12);
+  --apple-border-strong: rgba(255, 255, 255, 0.2);
+  --apple-text-primary: #f5f5f7;
+  --apple-text-secondary: #8e8e93;
+  --apple-text-tertiary: #636366;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: clamp(320px, 100vw, 380px);
+  min-height: 480px;
+  max-height: 600px;
+  background-color: #1a1a1e;
+  color: var(--apple-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: clamp(12px, 0.95vw, 13px);
+  line-height: 1.45;
+  letter-spacing: -0.2px;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Container */
+.mac-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 480px;
+  max-height: 600px;
+  background: radial-gradient(circle at 50% 0%, rgba(45, 45, 52, 0.88), rgba(22, 22, 26, 0.96));
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  padding: clamp(12px, 2vw, 16px);
+  gap: clamp(10px, 1.5vw, 14px);
+  overflow-y: auto;
+}
+
+.mac-window::-webkit-scrollbar {
+  width: 4px;
+}
+.mac-window::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+/* ==========================================================================
+   1. Header
+   ========================================================================== */
+.mac-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-app-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #0a84ff 0%, #0066cc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.4), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.4);
+}
+
+.title-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.app-subtitle {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--apple-text-secondary);
+}
+
+/* Status Pill */
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid var(--apple-border);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #e5e5ea;
+  box-shadow: inset 0 0.5px 0.5px rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.status-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: var(--apple-green);
+  box-shadow: 0 0 8px rgba(48, 209, 88, 0.85);
+  transition: all 0.3s ease;
+}
+
+.status-dot.connecting {
+  background: var(--apple-orange);
+  box-shadow: 0 0 8px rgba(255, 214, 10, 0.85);
+}
+
+.status-dot.offline {
+  background: var(--apple-red);
+  box-shadow: 0 0 8px rgba(255, 69, 58, 0.85);
+}
+
+/* ==========================================================================
+   2. Segmented Pill Tab Bar (macOS Sequoia)
+   ========================================================================== */
+.segmented-bar {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.segmented-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  color: var(--apple-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.1px;
+}
+
+.segmented-item:hover {
+  color: #ffffff;
+}
+
+.segmented-item.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   3. Body & Panes
+   ========================================================================== */
+.mac-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-pane {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  animation: mac-fade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-pane.active {
+  display: flex;
+}
+
+@keyframes mac-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   4. macOS Inset Grouped Cells
+   ========================================================================== */
+.inset-group {
+  background: var(--apple-gray-bg);
+  border: 0.5px solid var(--apple-border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.1);
+}
+
+.inset-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease;
+}
+
+.inset-cell:last-child {
+  border-bottom: none;
+}
+
+.cell-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.cell-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--apple-text-secondary);
+  letter-spacing: -0.1px;
+}
+
+.cell-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(10, 132, 255, 0.15);
+  color: #5ac8fa;
+  border: 0.5px solid rgba(90, 200, 250, 0.25);
+  transition: all 0.25s ease;
+}
+
+.cell-badge.badge-success {
+  background: rgba(48, 209, 88, 0.15);
+  color: #30d158;
+  border-color: rgba(48, 209, 88, 0.35);
+}
+
+.cell-badge.badge-danger {
+  background: rgba(255, 69, 58, 0.15);
+  color: #ff453a;
+  border-color: rgba(255, 69, 58, 0.35);
+}
+
+.cell-badge.badge-warning {
+  background: rgba(255, 214, 10, 0.15);
+  color: #ffd60a;
+  border-color: rgba(255, 214, 10, 0.35);
+}
+
+.cell-badge.badge-checking {
+  background: rgba(255, 255, 255, 0.08);
+  color: #8e8e93;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes input-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+.cell-input.input-invalid {
+  animation: input-shake 0.35s ease;
+  color: #ff453a;
+}
+
+.cell-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  font-family: inherit;
+  padding: 2px 0;
+}
+
+.cell-input::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.cell-input[type="password"] {
+  letter-spacing: 1.5px;
+}
+
+.cell-input-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.cell-input-row .cell-input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 28px;
+}
+
+.btn-toggle-eye {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.btn-toggle-eye:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cell-desc {
+  font-size: 11px;
+  color: var(--apple-text-tertiary);
+  margin-top: 4px;
+}
+
+/* Row Cell (Switch) */
+.row-cell {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.row-cell .cell-title {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   5. Apple iOS Switch Toggle
+   ========================================================================== */
+.apple-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.apple-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(120, 120, 128, 0.36);
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-switch input:checked + .switch-slider {
+  background-color: #34c759;
+}
+
+.apple-switch input:checked + .switch-slider:before {
+  transform: translateX(18px);
+}
+
+/* ==========================================================================
+   6. Buttons
+   ========================================================================== */
+.actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.mac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.1px;
+}
+
+.mac-btn:active {
+  transform: scale(0.96);
+}
+
+.mac-btn-primary {
+  flex: 1;
+  background: var(--apple-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 113, 227, 0.4), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.3);
+}
+
+.mac-btn-primary:hover {
+  background: var(--apple-blue-hover);
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.55);
+}
+
+.mac-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--apple-text-primary);
+  border: 0.5px solid var(--apple-border);
+  box-shadow: inset 0 0.5px 0.5px rgba(255, 255, 255, 0.15);
+}
+
+.mac-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.mac-btn-sm {
+  height: 26px;
+  padding: 0 10px;
+  font-size: 11px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   7. History List
+   ========================================================================== */
+.history-container {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 2px;
+}
+
+.history-container::-webkit-scrollbar {
+  width: 4px;
+}
+.history-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+.history-item {
+  background: var(--apple-gray-bg);
+  border: 0.5px solid var(--apple-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.history-item:hover {
+  background: var(--apple-gray-hover);
+  border-color: var(--apple-border-strong);
+}
+
+.history-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-name {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: -0.2px;
+}
+
+.history-time {
+  font-size: 10.5px;
+  color: var(--apple-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.history-url {
+  font-size: 11px;
+  color: #0a84ff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Mono", Menlo, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.history-btns {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.history-btns .mac-btn {
+  height: 24px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  text-align: center;
+  gap: 8px;
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--apple-text-tertiary);
+  margin-bottom: 4px;
+}
+
+.empty-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.empty-subtitle {
+  font-size: 11.5px;
+  color: var(--apple-text-secondary);
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+.history-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+/* ==========================================================================
+   8. Guide List
+   ========================================================================== */
+.step-cell {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.step-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(10, 132, 255, 0.18);
+  border: 0.5px solid rgba(10, 132, 255, 0.4);
+  color: #0a84ff;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.step-desc {
+  font-size: 11.5px;
+  color: var(--apple-text-secondary);
+  line-height: 1.5;
+}
+
+kbd {
+  background: rgba(255, 255, 255, 0.12);
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 10.5px;
+  font-family: inherit;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+code {
+  background: rgba(10, 132, 255, 0.15);
+  color: #5ac8fa;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Mono", monospace;
+}
+
+/* ==========================================================================
+   9. macOS Footer
+   ========================================================================== */
+.mac-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+}
+
+.version-label {
+  color: var(--apple-text-tertiary);
+}
+
+.dock-link-btn {
+  background: transparent;
+  border: none;
+  color: var(--apple-blue-hover);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.dock-link-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}

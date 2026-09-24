@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  axurehub:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: axurehub-server
+    restart: always
+    ports:
+      - "${PORT:-8088}:8088"
+    environment:
+      - PORT=8088
+      - PROTOTYPES_DIR=/srv/prototypes
+      - AUTH_TOKEN=${AUTH_TOKEN:-admin-token-secret}
+      - TZ=${TZ:-Asia/Shanghai}
+    volumes:
+      - ./server/app.py:/app/app.py
+      - ./server/axurehub.html:/app/axurehub.html
+      - ./data/prototypes:/srv/prototypes

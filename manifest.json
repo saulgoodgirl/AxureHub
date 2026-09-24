@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "AxureHub Sync - 私有化Axure原型一键同步",
+  "version": "1.1.0",
+  "description": "专为 Axure RP 原型设计的私有化一键同步扩展。免商业授权锁，按 F5 预览一键秒级打包并推送到云端服务器。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "AxureHub 私有同步助手"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/start.html*",
+        "*://*/start_c_1.html*",
+        "file:///*/start.html*",
+        "file:///*/start_c_1.html*"
+      ],
+      "js": [
+        "lib/jszip.min.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

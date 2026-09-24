@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+
+# Runtime data & user uploaded prototypes
+/data/
+/prototypes/
+tokens.json
+*.zip
+
+# Internal dev & ops scripts
+server/scripts/
+MEMORY.md
+preview_*.html
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Logs
+*.log
