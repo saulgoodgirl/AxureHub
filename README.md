@@ -54,7 +54,16 @@
   <img src="docs/images/dashboard-light-endpoints.png" alt="AxureHub 安全网关与密钥管理中心" width="100%" />
 </p>
 
-### 2. 浏览器协同扩展 (AxureHub Sync Extension · Chrome / Edge)
+### 2. Axure 本地预览沉浸式同步交互 (In-Situ Preview & Sync Workflow)
+
+#### 🚀 F5 本地预览右下角智能胶囊与 AirPods 风格成功卡片
+> 在 Axure RP 中按下 `F5` 快捷键启动本地预览时，扩展自动在页面右下角唤起 **Dynamic Island 灵动岛悬浮胶囊**。无需离开原型画布，点击「同步到云端」即可秒级打包上云；同步就绪后自动升起 **AirPods 风格毛玻璃反馈卡片 (Success HUD)**，直接复制或打开公网直链。
+
+<p align="center">
+  <img src="docs/images/preview-capsule-and-success-hud.png" alt="Axure 原型本地预览沉浸式同步交互与成功卡片" width="100%" />
+</p>
+
+### 3. 浏览器协同扩展详情 (AxureHub Sync Extension · Chrome / Edge)
 
 专为设计师与产品经理打造的沉浸式无感同步扩展，配置极简、历史可溯、零干扰交互：
 
@@ -212,8 +221,12 @@ server {
 
 ### 3. 一键同步推送原型
 1. 在 Axure RP 8/9/10 中，点击顶部工具栏 **「预览」** 或直接按快捷键 **`F5`**；
-2. 浏览器打开本地原型页面（`127.0.0.1:32767/start.html`）后，右下角将自动浮现 **AxureHub 同步悬浮胶囊**；
-3. 点击 **「一键同步至云端」**，插件将在数秒内将整个原型打包解压上线，并自动将访问链接复制至剪贴板！
+2. 浏览器打开本地原型页面（`127.0.0.1:32767/start.html`）后，右下角将自动浮现 **AxureHub 智能同步悬浮胶囊**；
+3. 点击 **「同步到云端」**，插件将在数秒内将整个原型打包解压上线，并即时弹出 **AirPods 风格成功卡片**，同时自动将访问链接复制至系统剪贴板！
+
+<p align="center">
+  <img src="docs/images/preview-capsule-and-success-hud.png" alt="Axure 原型本地预览一键推流工作流" width="90%" />
+</p>
 
 ---
 
