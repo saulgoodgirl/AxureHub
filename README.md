@@ -36,6 +36,35 @@
 
 ---
 
+## 📸 界面与交互全览 (Visual Showcase)
+
+### 1. 现代化 Web 控制台 (Light Mode / 极简科技风)
+
+#### 📁 原型资产托管中心
+> 实时汇聚项目总数、活跃状态与磁盘存储占用。内置沙箱拟态浏览器视窗与 Blueprint 蓝图背景，支持卡片/列表双模态切换、毫秒级即时检索、全屏在线交互预览、真机测试二维码、知识库 iframe 嵌入与物理清空/删除操作。
+
+<p align="center">
+  <img src="docs/images/dashboard-light-projects.png" alt="AxureHub 原型资产托管中心" width="100%" />
+</p>
+
+#### 🔑 安全网关与多 Token 密钥权限管理中心
+> 1:1 对齐现代 API 接口网关标准。支持本地直连与公网隧道双通道智能切换，提供全局强制 API 鉴权总开关，支持按团队成员或业务线动态签发独立 API Token，具备一键启停、独立复制与安全掩码防护。
+
+<p align="center">
+  <img src="docs/images/dashboard-light-endpoints.png" alt="AxureHub 安全网关与密钥管理中心" width="100%" />
+</p>
+
+### 2. 浏览器协同扩展 (AxureHub Sync Extension · Chrome / Edge)
+
+专为设计师与产品经理打造的沉浸式无感同步扩展，配置极简、历史可溯、零干扰交互：
+
+| ⚙️ 服务端连接与鉴权配置 | 🕒 原型同步历史记录与溯源 | 📖 F5 预览一键推流极速指南 |
+| :---: | :---: | :---: |
+| <img src="docs/images/extension-service-config.png" width="300" alt="服务端连接与鉴权配置" /> | <img src="docs/images/extension-history-list.png" width="300" alt="原型同步历史记录与溯源" /> | <img src="docs/images/extension-quick-guide.png" width="300" alt="F5 预览一键推流极速指南" /> |
+| **全链路鉴权校验**<br>支持明密文切换、自适应反代域名、连通性实时探测与剪贴板自动写入 | **历史推流全景看板**<br>完整记录发布时间戳、原型包体积大小，支持一键快捷打开与分享链接复制 | **3 步无感极速上手**<br>F5 预览自动唤起 Dynamic Island 悬浮胶囊，内存直解打包秒级推送 |
+
+---
+
 ## 📐 系统架构
 
 ```mermaid
