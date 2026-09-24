@@ -18,6 +18,10 @@ tokens.json
 server/scripts/
 MEMORY.md
 preview_*.html
+dist/
+build_edge_package.py
+generate_store_assets.py
+edge-store-package/
 
 # Operating System Files
 .DS_Store
