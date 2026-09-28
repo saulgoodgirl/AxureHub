@@ -22,6 +22,8 @@ dist/
 build_edge_package.py
 generate_store_assets.py
 edge-store-package/
+*.rplib
+axure-libraries/*.rplib
 
 # Operating System Files
 .DS_Store
