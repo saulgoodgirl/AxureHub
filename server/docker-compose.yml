@@ -14,7 +14,7 @@ services:
     volumes:
       - ./app.py:/app/app.py
       - ./axurehub.html:/app/axurehub.html
-      - ./prototypes:/srv/prototypes
+      - /srv/prototypes:/srv/prototypes
     deploy:
       resources:
         limits:
