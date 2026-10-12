@@ -15,4 +15,12 @@ services:
       - ./app.py:/app/app.py
       - ./axurehub.html:/app/axurehub.html
       - ./prototypes:/srv/prototypes
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+          cpus: '1.5'
+        reservations:
+          memory: 64M
+    mem_limit: 300m
 

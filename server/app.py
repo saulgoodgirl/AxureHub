@@ -1,6 +1,8 @@
 # AxHub Sync Server - Cloud Prototype Receiver & Gateway
 # Python FastAPI / Uvicorn
 
+import asyncio
+import gc
 import os
 import shutil
 import zipfile
@@ -165,6 +167,9 @@ async def upload_prototype(
 
         # Extract ZIP safely with UTF-8 filename decoding
         file_count = 0
+        total_size = 0
+        has_start_html = False
+
         with zipfile.ZipFile(temp_zip, "r") as zip_ref:
             for info in zip_ref.infolist():
                 filename = info.filename
@@ -187,11 +192,15 @@ async def upload_prototype(
                     with zip_ref.open(info) as src, open(target_file, "wb") as dst:
                         shutil.copyfileobj(src, dst)
                     file_count += 1
+                    total_size += info.file_size
+                    if filename in ("start.html", "index.html") or filename.endswith("/start.html") or filename.endswith("/index.html"):
+                        has_start_html = True
 
-        # Compute size and save fast metadata cache
-        total_size = sum(f.stat().st_size for f in target_dir.rglob("*") if f.is_file() and f.name != ".meta.json")
+                    # Yield event loop every 800 files to let OS kernel flush dirty pages and prevent I/O deadlock
+                    if file_count % 800 == 0:
+                        await asyncio.sleep(0.005)
+
         size_mb = round(total_size / (1024 * 1024), 2)
-        has_start_html = (target_dir / "start.html").exists() or (target_dir / "index.html").exists()
 
         meta = {
             "mtime": target_dir.stat().st_mtime,
@@ -207,9 +216,10 @@ async def upload_prototype(
         except Exception:
             pass
 
-        # Clean up temporary zip
+        # Clean up temporary zip and force instant garbage collection to free memory
         if temp_zip.exists():
             temp_zip.unlink()
+        gc.collect()
 
         # Build public preview URL
         public_url = f"/p/{safe_name}/start.html"
